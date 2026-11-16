@@ -1,206 +1,139 @@
-# Food and nutrition
+# NutriTaste AI — Culinary Intelligence & Nutrition Studio
 
-Summary: This rush will help you to strengthen the skills acquired over the previous days.
+**NutriTaste AI** — это интеллектуальная система анализа рецептов, оценки вкусовой гармонии ингредиентов и стохастической генерации сбалансированного дневного рациона на основе базы Epicurious (20 000+ рецептов) и официального пищевого реестра USDA FoodData Central.
 
-💡 [Tap here](https://new.oprosso.net/p/4cb31ec3f47a4596bc758ea1861fb624) **to leave your feedback on the project**. It's anonymous and will help our team make your educational experience better. We recommend completing the survey immediately after the project.
+Проект объединяет машинное обучение (Random Forest Classifier), алгоритмический подбор похожих рецептов (метрика Жаккара), интеграцию с внешним API пищевой ценности и интерактивный веб-интерфейс.
 
-## Contents
+---
 
-- [Food and nutrition](#food-and-nutrition)
-  - [Contents](#contents)
-  - [Chapter I](#chapter-i)
-    - [Foreword](#foreword)
-  - [Chapter II](#chapter-ii)
-    - [Instructions](#instructions)
-  - [Chapter III](#chapter-iii)
-    - [Specific instructions for the day](#specific-instructions-for-the-day)
-  - [Chapter IV](#chapter-iv)
-    - [Mandatory part](#mandatory-part)
-      - [Main program](#main-program)
-      - [Development](#development)
-      - [Research](#research)
-  - [Chapter V](#chapter-v)
-    - [Bonus part](#bonus-part)
-  - [Chapter VI](#chapter-vi)
-    - [Submission and peer-evaluation](#submission-and-peer-evaluation)
+## 🌟 Основные возможности
 
-## Chapter I
+1. **Оценка сочетаемости ингредиентов (Recipe Evaluator):**
+   - Предиктивная классификация комбинации ингредиентов на 3 класса: `Great` (гармонично), `So-so` (средне), `Bad` (спорно / невкусно).
+   - Распределение вероятностей уверенности модели (Confidence Distribution).
+   - Выдача похожих проверенных рецептов из корпуса Epicurious с ранжированием по проценту пересечения состава.
 
-### Foreword
+2. **Профиль пищевой ценности (USDA FoodData Central Integration):**
+   - Расчет совокупного процента суточной нормы (% Daily Value, DV) для 12 ключевых макро- и микронутриентов (калории, белки, полезные жиры, натрий, железо, витамины A, C, B12 и др.).
+   - Автоматическое кэширование запросов к USDA API для снижения задержки.
 
-You are what you eat. Think of your body as a system that needs many different nutrients to live a happy, healthy life. Without the proper nutrients, important chemical reactions may stop occurring, which can lead to health problems.
+3. **Стохастический планировщик дневного рациона (Daily Diet Planner):**
+   - Алгоритм многотысячных перестановок блюд (Breakfast, Lunch, Dinner).
+   - Подбор тройки рецептов, гарантированно покрывающей **от 50% до 100% суточной нормы (%DV)** по калориям, белкам, полезным жирам и натрию при максимизации гастрономического рейтинга.
 
-To live healthily, your diet should be balanced. You need proteins, carbohydrates, and fats, as well as Fe, Mg, Na, K, Ca, Zn, Se, Cr, and I. You also need vitamins D, B12, E, C, A, and K, as well as Cu. This is a long list, but it's far from exhaustive. If you don't consume enough protein, your body will start breaking down your muscles, organs, and tissues to get it. Eventually, you will lack certain enzymes, hormones, transport proteins, and immune cells. Eating too much of these nutrients can intoxicate your body with decaying materials, which will decrease your health. This applies to any item on the list. "Everything is poisonous, and nothing is without poison. The dosage makes it either a poison or a remedy".
+4. **Два интерфейса использования:**
+   - Полноценный **Web UI (Flask)** с чистым дизайном в стиле *Unslop* (строгая нейтральная палитра, четкие 4px сетки, отсутствие визуального AI-шума).
+   - **Gradio Space** для мгновенного облачного деплоя на Hugging Face.
+   - Консольный CLI-модуль (`nutritionist.py` и `recipes.py`).
 
-The first problem is that our diet is not as diverse as it should be.
-If we are talking about the average person in the Western world, that is. How often do you eat vegetables, fruits, nuts, beans, berries, bread, pastries, fish, meat, seaweed, and butter? How often do you drink coffee, green tea, milk, alcohol, juice, and smoothies?
+---
 
-The second problem is that we like tasty food, and none of this healthy food tastes as good as fried potatoes, chips, etc. The third problem is that we don't know enough good recipes.
-
-What if we had an app that could predict how tasty a dish could be with the ingredients currently in our refrigerator and recommend recipes that are both healthy and tasty?
-
-## Chapter II
-
-### Instructions
-
-How to learn at “School 21”:
-
-- Here, you’ll find a unique learning experience with a lot of freedom. You’re given a task and left to find your own way to solve it, using whatever resources work best for you — whether that’s the Internet or AI tools like GigaChat. Just be mindful of information quality: verify, think critically, analyze, and compare.
-- Peer-to-peer (P2P) learning is the exchange of knowledge and experience with peers, where everyone acts as both mentor and student. This approach allows you to gain a deeper understanding of the material by learning from one another.
-- Feel free to ask for help: around you are peers who are also navigating this path for the first time. Share your own experience and ideas with others.  Join Rocket.Chat to stay updated with the latest community announcements. 
-- Your learning is meaningless if you just copy someone else’s solutions. When receiving help from others, always make sure you fully understand the “why”, “how”, and “purpose” behind the solution. Don’t be afraid to make mistakes. 
-- Does the task seem impossible? Take a break, get some fresh air and clear your mind — this has helped many people. Maybe after that, the solution will come to you naturally.
-- The learning process is just as important as the result. It’s not just about completing the task — it’s about understanding HOW to solve it. 
-
-How to work with the project:
-
-* Use this page as your only reference. Do not pay attention to rumors or speculation about how to prepare your solution.
-* Here and throughout, we use Python 3 as the only correct version of Python.
-* The python files for python exercises (module01, module02, module03) must have the following block at the end: `if __name__ == '__main__'`.
-* Pay attention to the permissions of your files and directories.
-* To be assessed your solution must be in your GIT repository.
-* Your solutions will be evaluated by your peers in the bootcamp.
-* You should not leave any other files in your directory other than those explicitly specified in the exercise instructions. It is recommended that you modify your .gitignore to avoid any accidents.
-* Your solution must be in your GIT repository for evaluation. Always push only to the develop branch! The master branch will be ignored. Work in the src directory.
-* When you need to get precise output in your programs, it is forbidden to display a precalculated output instead of performing the exercise correctly.
-* Have a question? Ask your neighbor on the right. If that fails, try your neighbor on the left.
-* Your reference materials are your peers, the internet, and Google.
-* Read the examples carefully. They may require information that is not specified elsewhere in the subject.
-* May the Force be with you!
-
-## Chapter III
-
-### Specific instructions for the day
-
-* No code in the global scope of the main program. Use the classes and methods that you have written in the development stage!
-* Any exception not caught will invalidate your work, even in the event of an error that you were asked to test.
-* The interpreter to use is Python 3.
-* All built-in functions are is allowed.
-
-## Chapter IV
-
-### Mandatory part
-
-Today, you will work on your own application to help people eat healthier and tastier food. Creating a product prototype using the technologies you have studied is valuable experience. You will achieve great results in just two weeks of Python and data science training!
-
-Your work will have three stages: research (working in a notebook), development (organizing everything in a module with classes and methods), and programming
-(Python script). Each stage will produce corresponding files.
-
-#### Main program
-
-Let's start from the end. The program is a Python script (`nutritionist.py`).
-
-* It takes in a list of ingredients.
-* It forecasts and returns the rating class (bad, so-so, or great) of a potential dish containing the ingredients.
-* It finds and returns all the nutrients (proteins, fats, sodium, etc.) in the ingredients, as well as their daily values as a percentage.
-* It finds the three most similar recipes to the list of ingredients, their ratings, and the URLs where users can find full details.
-
-Here is an example:
+## 🏗 Архитектура и структура проекта
 
 ```
-$ ./nutritionist.py milk, honey, jam
-I. OUR FORECAST
-You might find it tasty, but in our opinion, it is a bad idea to have a
-dish with that list of ingredients.
-II. NUTRITION FACTS
-Milk
-Protein - 6% of Daily Value
-Total Carbohydrate - 1% of Daily Value
-Total Fat - 1% of Daily Value
-Calcium - 12% of Daily Value
-...
-Honey
-...
-Jam
-...
-III. TOP-3 SIMILAR RECIPES:
-- Strawberry-Soy Milk Shake, rating: 3.0, URL:
-https://www.epicurious.com/recipes/food/views/strawberry-soy-milk-
-shake-239217
-- ...
-- ...
+.
+├── src/
+│   ├── recipes.ipynb          # Исследование данных, EDA, обучение модели и валидация
+│   ├── recipe_model.joblib    # Обученный пайплайн RandomForest (вероятностный классификатор)
+│   ├── nutritionist.py        # CLI-интерфейс консультанта и интеграция с USDA API
+│   ├── recipes.py             # Модуль предсказания и поиска похожих блюд
+│   ├── nutrition_facts.csv    # Предобработанная база нутриентов USDA
+│   ├── similar_recipes.csv    # Корпус рецептов Epicurious для поиска совпадений
+│   ├── menu_recipes.csv       # База блюд для стохастического генератора меню
+│   ├── usda_raw_cache.json    # Локальный кэш запросов к FoodData Central
+│   └── .env.example           # Пример конфигурации USDA API ключа
+├── web/
+│   ├── app.py                 # Flask REST API + контроллер веб-сервиса
+│   ├── run_service.sh         # Скрипт быстрого запуска сервиса
+│   ├── requirements.txt       # Зависимости веб-сервиса
+│   ├── Dockerfile             # Сборка контейнера для облака / VPS
+│   └── templates/
+│       └── index.html         # Адаптивный фронтенд (интерактивная кулинарная студия)
+├── hf_space/                  # Бандл для деплоя в Hugging Face Spaces (Gradio)
+│   ├── app.py
+│   └── requirements.txt
+├── .gitignore
+├── LICENSE
+└── README.md
 ```
 
-#### Development
+---
 
-You need to create a Python module (`recipes.py`) with the classes and
-methods that are used in the main script.
+## 🚀 Быстрый старт и запуск
 
-#### Research
+### 1. Предварительные требования
+- Python 3.10+
+- Ключ USDA FoodData Central API (опционально, но рекомендуется). Получить бесплатный ключ можно на сайте: [fdc.nal.usda.gov](https://fdc.nal.usda.gov/api-key-signup.html).
 
-In this part of the Bootcamp, you need to prepare everything that is used
-in the classes and methods above in a Jupyter Notebook (`recipes.ipynb`).
+### 2. Клонирование и установка зависимостей
+```bash
+git clone https://github.com/golosizrozetki/foodnut.git
+cd foodnut
 
-* Forecast
-  * Data Preparation 
-    * Use the **Epicurious dataset** (download in materials) collected by HugoDarwood.
-    * Filter the columns; the fewer non-ingredient columns in your dataset, the better. You will predict the rating or rating category using only the ingredients. 
-  * Regression 
-    * Try different algorithms and their hyperparameters for rating prediction. Select the best one based on cross-validation and determine the score (RMSE) using the test subsample. 
-    * Try different ensembles and their hyperparameters. Select the best one using cross-validation and calculate the RMSE on the test subsample. 
-    * Calculate the RMSE for a naive regressor that predicts the average rating. 
-  * Classification 
-    * Binarize the target column by rounding the ratings to the closest integer. These will be your classes. 
-    * Try different algorithms and their hyperparameters for class prediction. Select the best algorithm based on cross-validation and determine the accuracy score on the test subsample. 
-    * Compare the metrics using accuracy. Calculate the accuracy of a naïve classifier that predicts the most common class.
-    * Binarize the target column by converting the integers to the following classes: “bad” (0, 1), “so-so” (2, 3), and “great” (4, 5). 
-    * Try different algorithms and their hyperparameters for class prediction. Select the best algorithm using cross-validation and determine the score on the test subsample. 
-    * Compare the metrics using accuracy. Calculate the accuracy of a naïve classifier that predicts the most common class. 
-    * What is worse: predicting a bad rating that is actually good or predicting a good rating that is actually bad? Replace accuracy with the appropriate metric. 
-    * Try different algorithms and their hyperparameters for class prediction with the new metric. Select the best algorithm and find its score on the test subsample. 
-    * Try different ensembles and their hyperparameters. Select the best one and find its score on the test subsample.
-  * Decision
-    * Decide whether to use the regression model or the classification model. Save the best model. You will use it in the program.
-* Nutrition Facts
-  * Collect all the nutrition facts for the ingredients from your prepared and filtered dataset (only ingredient columns) into a data frame. Use [the following API](https://fdc.nal.usda.gov/api-guide.html) for that.
-  * Transform all the values into a percentage of the daily value. Keep only nutrients that exist in [this](https://drive.google.com/file/d/1jn0t5tU_RgOpq4wcO-uS4D0_NAP6MwHz/view?usp=sharing) and [that](https://drive.google.com/file/d/1bmdZGB0QwND2BD3XlC1JswL7AdnTJHLT/view?usp=sharing) table. 
-  * Save the transformed dataframe to a CSV file that you will use in your main program.
-* Similar Recipes 
-  * For each recipe in the dataset, collect the URL from epicurious.com with its details. If there is no URL for a recipe, skip it.
-  * Save the new dataframe to a CSV file that you will use in your main program.
+# Создание и активация виртуального окружения
+python3 -m venv venv
+source venv/bin/activate  # Для Linux/macOS
+# .\venv\Scripts\activate # Для Windows
 
-## Chapter V
-
-### Bonus part
-
-Add more methods to the classes to help the script perform a new function: generating a daily menu.
-
-The daily menu should randomly provide a list of three recipes that cover most nutritional needs (percent of daily value) without exceeding them, and that have the highest total rating.
-
-Only offer recipes appropriate for breakfast, lunch, and dinner, respectively.
-
-The program's output should resemble this:
-
-```
-BREAKFAST
----------------------
-Feta, Spinach, and Basil Omelette Muffins (rating: 4.375)
-Ingredients:
-- arugula
-- egg
-- feta
-- muffin
-- omelet
-- spinach
-- tomato
-Nutrients:
-- protein: 16%
-- fat: 10%
-- sodium: 7 %
-- ...
-URL: https://www.epicurious.com/recipes/food/views/feta-spinach-and-basil-omelette-muffins
-LUNCH
----------------------
-...
+# Установка зависимостей
+pip install -r web/requirements.txt
 ```
 
-## Chapter VI
+### 3. Настройка переменных окружения
+Скопируйте пример файла конфигурации:
+```bash
+cp src/.env.example src/.env
+```
+Укажите ваш API-ключ в `src/.env`:
+```ini
+USDA_API_KEY=your_usda_api_key_here
+```
+*(При отсутствии ключа сервис продолжит работу, используя локальную предобработанную базу `nutrition_facts.csv` и кэш).*
 
-### Submission and peer-evaluation
+---
 
-Submit your work using your Git repository as usual.
+## 🖥 Варианты запуска
 
-Only work in your repository will be graded during the evaluation.
+### Вариант A. Запуск локального веб-сервиса (Flask)
+Выполните скрипт запуска:
+```bash
+bash web/run_service.sh
+```
+Или напрямую через Python:
+```bash
+python web/app.py
+```
+После запуска откройте в браузере: **http://localhost:8080** (или `http://127.0.0.1:8080`).
 
-You will be evaluated on both your submission and your ability to present, explain, and justify your choices during the evaluation.
+### Вариант B. Запуск через Docker
+```bash
+cd web
+docker build -t foodnut-service .
+docker run -p 8080:8080 foodnut-service
+```
 
+### Вариант C. Использование CLI (консольный режим)
+
+1. **Предсказание сочетаемости и поиск похожих блюд:**
+   ```bash
+   python src/recipes.py "chicken, garlic, rosemary, thyme"
+   ```
+
+2. **Анализ пищевой ценности и генерация оптимального дневного рациона:**
+   ```bash
+   python src/nutritionist.py
+   ```
+
+---
+
+## 🔬 Машинное обучение и пайплайн
+
+- **Датасет:** Более 20 000 рецептов Epicurious с разметкой ингредиентов, категорий и пользовательских оценок.
+- **Целевая переменная:** Категоризация рейтинга на классы качества (`bad` < 2.5, `so-so` 2.5–3.75, `great` >= 3.75).
+- **Модель:** Сбалансированный ансамбль деревьев решений (`RandomForestClassifier`) с кросс-валидацией и калибровкой вероятностей.
+- **Подбор меню:** Метод стохастического поиска Монте-Карло с жесткими ограничениями по нутриентному коридору (50–100% DV).
+
+---
+
+## 📄 Лицензия
+Проект распространяется под лицензией MIT. Подробности см. в файле [LICENSE](LICENSE).

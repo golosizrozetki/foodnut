@@ -22,15 +22,16 @@
 *.la
 *.lo
 
-# Shared objects (inc. Windows DLLs)
+# Shared objects
 *.dll
-
+*.so
+*.so.*
+*.dylib
 
 # ===== Python =====
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
 .Python
 .venv/
 venv/
@@ -41,44 +42,11 @@ env/
 # ===== Jupyter =====
 .ipynb_checkpoints/
 
-# ===== Project-specific =====
-.env
-src/.env
-src/data/
-datasets/
-
-# ===== OS / IDE =====
-.DS_Store
-*:Zone.Identifier
-.idea/
-.vscode/
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
-
-# --- секреты (НИКОГДА не коммитить) ---
+# ===== Project Data / Cache =====
 .env
 .env.*
 !.env.example
+src/.env
+src/data/
+datasets/
+materials/Epicurious_dataset.zip

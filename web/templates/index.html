@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriTaste AI — Culinary Intelligence & Nutrition Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Neutral ramp: warm culinary studio gray */
+      --canvas: #f8faf9;
+      --surface: #ffffff;
+      --surface-subtle: #f2f5f3;
+      --surface-hover: #f7f9f8;
+      
+      --border: #e1e7e4;
+      --border-strong: #c8d3ce;
+      --border-focus: #144a36;
+      
+      --text-main: #14221b;
+      --text-muted: #53645c;
+      --text-subtle: #7d8f86;
+      
+      /* Primary accent: restrained deep pine */
+      --primary: #144a36;
+      --primary-hover: #0c3325;
+      --primary-subtle: #ebf3ef;
+      
+      /* Semantic statuses: calm, low-saturation */
+      --status-great-bg: #f2f9f5;
+      --status-great-border: #bee3ce;
+      --status-great-text: #115e37;
+      --status-great-bar: #18814d;
+
+      --status-soso-bg: #fffbf0;
+      --status-soso-border: #fae4ad;
+      --status-soso-text: #855306;
+      --status-soso-bar: #cf7c0a;
+
+      --status-bad-bg: #fdf4f4;
+      --status-bad-border: #f7cece;
+      --status-bad-text: #962424;
+      --status-bad-bar: #c93b3b;
+
+      /* Restrained shadows: clean, small, neutral */
+      --shadow-sm: 0 1px 2px rgba(18, 30, 24, 0.04);
+      --shadow-md: 0 4px 12px rgba(18, 30, 24, 0.05);
+
+      /* Systematic radiuses */
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--canvas);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+      padding: 32px 20px 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    /* Top Brand Bar */
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      background: var(--primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .brand-logo svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .header-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tech-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--status-great-bar);
+    }
+
+    /* Tabs Bar */
+    .tabs-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .tabs-nav {
+      display: inline-flex;
+      background: var(--surface-subtle);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      gap: 4px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.15s ease, background-color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn svg {
+      width: 15px;
+      height: 15px;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .tab-btn.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Main Grid */
+    .app-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* Panel Card Container */
+    .panel-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .card-caption {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-caption svg {
+      width: 16px;
+      height: 16px;
+      color: var(--primary);
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .counter-pill {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Ingredient Basket & Chips */
+    .pantry-input-box {
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      padding: 8px 12px;
+      min-height: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      cursor: text;
+      position: relative;
+      transition: border-color 0.15s ease;
+    }
+
+    .pantry-input-box:focus-within {
+      border-color: var(--border-focus);
+    }
+
+    .tag-bubble {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .tag-bubble button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-subtle);
+      font-size: 14px;
+      line-height: 1;
+      padding: 0 2px;
+      display: flex;
+      align-items: center;
+    }
+
+    .tag-bubble button:hover {
+      color: var(--status-bad-text);
+    }
+
+    .native-input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 13.5px;
+      color: var(--text-main);
+      flex: 1;
+      min-width: 140px;
+      padding: 4px 0;
+    }
+
+    /* Autocomplete Dropdown */
+    .autocomplete-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin-top: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      max-height: 200px;
+      overflow-y: auto;
+      z-index: 50;
+      display: none;
+    }
+
+    .autocomplete-item {
+      padding: 8px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-main);
+    }
+
+    .autocomplete-item:hover, .autocomplete-item.active {
+      background: var(--surface-subtle);
+      color: var(--primary);
+    }
+
+    .helper-text {
+      font-size: 12px;
+      color: var(--text-subtle);
+      margin-top: 8px;
+      margin-bottom: 20px;
+    }
+
+    /* Preset Tasting Flights */
+    .preset-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    .presets-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .preset-flight {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .preset-flight:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-strong);
+    }
+
+    .preset-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--text-muted);
+    }
+
+    .preset-indicator svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .preset-flight strong {
+      display: block;
+      font-size: 13px;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .preset-flight span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Action Buttons */
+    .button-duo {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn-primary {
+      flex: 1;
+      background: var(--primary);
+      color: #ffffff;
+      border: 1px solid var(--primary);
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.15s ease;
+      min-height: 40px;
+    }
+
+    .action-btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .action-btn-ghost {
+      background: var(--surface);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 40px;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .action-btn-ghost:hover {
+      border-color: var(--border-strong);
+      color: var(--text-main);
+    }
+
+    /* Results Showcase */
+    .results-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .empty-hero {
+      background: var(--surface);
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 64px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .empty-hero-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--text-subtle);
+    }
+
+    .empty-hero-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    .empty-hero h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .empty-hero p {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 440px;
+      line-height: 1.5;
+    }
+
+    /* Verdict Hero Card */
+    .verdict-hero {
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .verdict-hero.great {
+      background: var(--status-great-bg);
+      border-color: var(--status-great-border);
+    }
+
+    .verdict-hero.so-so {
+      background: var(--status-soso-bg);
+      border-color: var(--status-soso-border);
+    }
+
+    .verdict-hero.bad {
+      background: var(--status-bad-bg);
+      border-color: var(--status-bad-border);
+    }
+
+    .verdict-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .verdict-badge-capsule {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .verdict-hero.great .verdict-badge-capsule {
+      background: #ffffff;
+      border: 1px solid var(--status-great-border);
+      color: var(--status-great-text);
+    }
+
+    .verdict-hero.so-so .verdict-badge-capsule {
+      background: #ffffff;
+      border: 1px solid var(--status-soso-border);
+      color: var(--status-soso-text);
+    }
+
+    .verdict-hero.bad .verdict-badge-capsule {
+      background: #ffffff;
+      border: 1px solid var(--status-bad-border);
+      color: var(--status-bad-text);
+    }
+
+    .model-callout {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .verdict-lead-text {
+      font-size: 14.5px;
+      line-height: 1.55;
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 20px;
+    }
+
+    /* Probability Breakdown */
+    .proba-gauge-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+
+    .proba-caption {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .proba-segmented-bar {
+      height: 8px;
+      background: var(--surface-subtle);
+      border-radius: 4px;
+      display: flex;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .seg-great { background: var(--status-great-bar); height: 100%; transition: width 0.3s ease; }
+    .seg-soso { background: var(--status-soso-bar); height: 100%; transition: width 0.3s ease; }
+    .seg-bad { background: var(--status-bad-bar); height: 100%; transition: width 0.3s ease; }
+
+    .proba-legend {
+      display: flex;
+      gap: 16px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    /* Similar Recipes Showcase */
+    .recipes-card-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .recipe-glass-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.15s ease;
+      gap: 16px;
+    }
+
+    .recipe-glass-item:hover {
+      border-color: var(--border-strong);
+    }
+
+    .recipe-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .recipe-heading {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .recipe-meta-row {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .rating-badge {
+      display: inline-flex;
+      align-items: center;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .overlap-badge {
+      color: var(--text-muted);
+    }
+
+    .recipe-action-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .recipe-action-link:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-strong);
+    }
+
+    .recipe-action-link svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* USDA Nutrition Visuals */
+    .nutrients-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 8px;
+    }
+
+    .nutrient-tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+    }
+
+    .nutrient-name {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nutrient-val-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+
+    .nutrient-number {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nutrient-unit {
+      font-size: 11px;
+      color: var(--text-subtle);
+    }
+
+    .gauge-track {
+      height: 4px;
+      background: var(--surface-subtle);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .gauge-level {
+      height: 100%;
+      border-radius: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .missing-alert {
+      margin-top: 16px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--status-soso-bg);
+      border: 1px solid var(--status-soso-border);
+      font-size: 12px;
+      color: var(--status-soso-text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* DAILY MENU PLANNER TAB */
+    .menu-panel-view {
+      display: none;
+    }
+
+    .menu-panel-view.active {
+      display: block;
+    }
+
+    .menu-hero-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+
+    .menu-hero-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .menu-hero-title h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
+
+    .menu-hero-title p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      max-width: 680px;
+      line-height: 1.5;
+    }
+
+    /* Target Zone Progress Bar */
+    .target-zone-card {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+
+    .target-zone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .score-badge-large {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .score-badge-large strong {
+      font-size: 16px;
+      color: var(--text-main);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .zone-indicator-pill {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--status-great-text);
+      background: #ffffff;
+      border: 1px solid var(--status-great-border);
+      padding: 3px 10px;
+      border-radius: var(--radius-sm);
+    }
+
+    .daily-stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .daily-stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+    }
+
+    .daily-stat-title {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .daily-stat-number {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* 3 Triplet Meal Cards */
+    .triplet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .triplet-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.15s ease;
+    }
+
+    .triplet-card:hover {
+      border-color: var(--border-strong);
+    }
+
+    .triplet-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      align-self: flex-start;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .triplet-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .triplet-rating {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .triplet-ings {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .triplet-nutrs {
+      background: var(--surface-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .triplet-nutrs strong {
+      color: var(--text-main);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Spinner */
+    .spinner-disc {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 900px) {
+      body {
+        padding: 20px 14px 60px;
+      }
+
+      .app-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .triplet-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .daily-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .tabs-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .tabs-nav {
+        width: 100%;
+      }
+
+      .tab-btn {
+        flex: 1;
+        justify-content: center;
+      }
+
+      .native-input {
+        font-size: 16px;
+      }
+
+      .nutrients-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .recipe-glass-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .recipe-heading {
+        white-space: normal;
+      }
+
+      .recipe-action-link {
+        align-self: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Brand Navigation Bar -->
+  <header class="top-header">
+    <div class="brand-group">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12c0-3.3 1.6-6.2 4-8"></path>
+          <path d="M12 2c0 5-3 9-8 10"></path>
+          <path d="M12 12c2.5 0 5 2 6 5"></path>
+        </svg>
+      </div>
+      <div>
+        <h1 class="brand-title">NutriTaste AI</h1>
+        <p class="brand-subtitle">Recipe Assessment & Dietary Planning Engine</p>
+      </div>
+    </div>
+    
+    <div class="header-badges">
+      <div class="tech-pill">
+        <span class="status-dot"></span>
+        <span>RandomForest Pipeline • USDA API • Epicurious</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mode Tabs -->
+  <div class="tabs-wrapper">
+    <div class="tabs-nav">
+      <button class="tab-btn active" id="tab-eval-btn" onclick="switchTab('eval')">
+        <svg viewBox="0 0 24 24"><path d="M6 13.87A8 8 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 8 8 0 0 1 18 13.87V21H6Z"></path><line x1="6" y1="17" x2="18" y2="17"></line></svg>
+        Recipe Evaluator
+      </button>
+      <button class="tab-btn" id="tab-menu-btn" onclick="switchTab('menu')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        Daily Diet Planner
+      </button>
+    </div>
+  </div>
+
+  <!-- TAB 1: RECIPE EVALUATOR -->
+  <div id="view-eval" class="app-grid">
+    
+    <!-- Left Column: Pantry Station -->
+    <div class="panel-card">
+      <div class="card-header-row">
+        <div class="card-caption">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          Ingredient Pantry
+        </div>
+        <span class="counter-pill" id="tag-counter">0 items</span>
+      </div>
+
+      <!-- Tag Input Box -->
+      <div class="pantry-input-box" id="pantry-box" onclick="focusNativeInput()">
+        <span id="chips-tray"></span>
+        <input type="text" id="ingredient-input" class="native-input" placeholder="Add ingredient (e.g. milk, honey)..." onkeydown="handleInputKey(event)" oninput="handleAutoComplete(event)" autocomplete="off">
+        <div class="autocomplete-list" id="autocomplete-list"></div>
+      </div>
+      <p class="helper-text">Press <strong>Enter</strong> or <strong>comma</strong> to add an ingredient.</p>
+
+      <!-- Tasting Flight Presets -->
+      <div class="preset-label">Curated Tasting Flights</div>
+      <div class="presets-stack">
+        <button class="preset-flight" onclick="loadFlight(['milk', 'honey', 'jam'])">
+          <div class="preset-indicator">
+            <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+          <div>
+            <strong>Panna Cotta Dessert</strong>
+            <span>milk, honey, jam</span>
+          </div>
+        </button>
+        <button class="preset-flight" onclick="loadFlight(['chicken', 'garlic', 'rosemary', 'thyme'])">
+          <div class="preset-indicator">
+            <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path></svg>
+          </div>
+          <div>
+            <strong>Provencal Poultry</strong>
+            <span>chicken, garlic, rosemary, thyme</span>
+          </div>
+        </button>
+        <button class="preset-flight" onclick="loadFlight(['spinach', 'egg', 'tomato', 'arugula', 'feta'])">
+          <div class="preset-indicator">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path></svg>
+          </div>
+          <div>
+            <strong>Mediterranean Frittata</strong>
+            <span>spinach, egg, tomato, arugula, feta</span>
+          </div>
+        </button>
+        <button class="preset-flight" onclick="loadFlight(['saffron', 'gin', 'chile pepper'])">
+          <div class="preset-indicator">
+            <svg viewBox="0 0 24 24"><path d="M6 2v6h12V2"></path><path d="M6 8v14h12V8"></path></svg>
+          </div>
+          <div>
+            <strong>Botanical Infusion</strong>
+            <span>saffron, gin, chile pepper</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-duo">
+        <button class="action-btn-primary" id="evaluate-btn" onclick="executeEvaluation()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          Evaluate Ingredients
+        </button>
+        <button class="action-btn-ghost" onclick="clearBasket()">Clear</button>
+      </div>
+    </div>
+
+    <!-- Right Column: Live Model Output -->
+    <div class="results-stack" id="results-stack">
+      
+      <!-- Empty Hero State -->
+      <div class="empty-hero" id="empty-state">
+        <div class="empty-hero-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        </div>
+        <h3>Awaiting Ingredient Composition</h3>
+        <p>Select a tasting flight or assemble ingredients in your pantry, then select <strong>Evaluate Ingredients</strong>.</p>
+      </div>
+
+      <!-- Active Content Container -->
+      <div id="results-body" style="display: none; display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- I. VERDICT HERO -->
+        <div id="verdict-banner" class="verdict-hero great">
+          <div class="verdict-top-bar">
+            <span class="verdict-badge-capsule" id="verdict-capsule">Great Choice</span>
+            <span class="model-callout">Trained on Epicurious Ratings</span>
+          </div>
+          <p class="verdict-lead-text" id="verdict-commentary"></p>
+          
+          <!-- Confidence Distribution -->
+          <div class="proba-gauge-card" id="proba-panel">
+            <div class="proba-caption">
+              <span>Model Confidence Distribution</span>
+              <span id="top-proba-metric">97% Confidence</span>
+            </div>
+            <div class="proba-segmented-bar">
+              <div class="seg-great" id="gauge-great" style="width: 0%;"></div>
+              <div class="seg-soso" id="gauge-soso" style="width: 0%;"></div>
+              <div class="seg-bad" id="gauge-bad" style="width: 0%;"></div>
+            </div>
+            <div class="proba-legend">
+              <div class="legend-item"><span class="legend-dot" style="background: var(--status-great-bar)"></span><span id="lbl-great">Great: 0%</span></div>
+              <div class="legend-item"><span class="legend-dot" style="background: var(--status-soso-bar)"></span><span id="lbl-soso">So-so: 0%</span></div>
+              <div class="legend-item"><span class="legend-dot" style="background: var(--status-bad-bar)"></span><span id="lbl-bad">Bad: 0%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- II. TOP MATCHING RECIPES -->
+        <div class="panel-card">
+          <div class="card-header-row">
+            <div class="card-caption">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              Top Matching Recipes (Epicurious)
+            </div>
+            <span class="counter-pill">Jaccard Overlap Metric</span>
+          </div>
+          <div class="recipes-card-grid" id="recipes-deck"></div>
+        </div>
+
+        <!-- III. USDA NUTRITIONAL FACTS -->
+        <div class="panel-card">
+          <div class="card-header-row">
+            <div class="card-caption">
+              <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+              Nutritional Profile (% Daily Value)
+            </div>
+            <span class="counter-pill">USDA FoodData Central</span>
+          </div>
+          <div class="nutrients-cards-grid" id="nutrients-deck"></div>
+          <div id="missing-alert" class="missing-alert" style="display: none;"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- TAB 2: DAILY DIET PLANNER -->
+  <div id="view-menu" class="menu-panel-view">
+    <div class="menu-hero-banner">
+      <div class="menu-hero-header">
+        <div class="menu-hero-title">
+          <h2>Stochastic 3-Meal Diet Optimizer</h2>
+          <p>Evaluates combinations across 20,000 recipes to generate an optimal Breakfast, Lunch, and Dinner sequence meeting 50% to 100% DV across key nutrients.</p>
+        </div>
+        <button class="action-btn-primary" id="generate-diet-btn" onclick="executeMenuOptimization()" style="max-width: 220px; width: 100%;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          Generate Optimal Menu
+        </button>
+      </div>
+
+      <!-- Target Zone Summary -->
+      <div id="diet-results-box" style="display: none;">
+        <div class="target-zone-card">
+          <div class="target-zone-header">
+            <div class="score-badge-large">
+              Cumulative Gastronomic Score: <strong id="diet-score-display">14.38 / 15.0</strong>
+            </div>
+            <div class="zone-indicator-pill">Target Zone Met: 50% – 100% DV</div>
+          </div>
+          
+          <div class="daily-stats-row">
+            <div class="daily-stat-box">
+              <div class="daily-stat-title">Daily Calories</div>
+              <div class="daily-stat-number" id="stat-cal">51.5% DV</div>
+            </div>
+            <div class="daily-stat-box">
+              <div class="daily-stat-title">Daily Protein</div>
+              <div class="daily-stat-number" id="stat-prot">82.0% DV</div>
+            </div>
+            <div class="daily-stat-box">
+              <div class="daily-stat-title">Daily Healthy Fat</div>
+              <div class="daily-stat-number" id="stat-fat">66.7% DV</div>
+            </div>
+            <div class="daily-stat-box">
+              <div class="daily-stat-title">Daily Sodium</div>
+              <div class="daily-stat-number" id="stat-sod">54.9% DV</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Meal Triplet Cards -->
+        <div class="triplet-grid">
+          <!-- Breakfast -->
+          <div class="triplet-card">
+            <div>
+              <span class="triplet-badge">Breakfast</span>
+              <h3 class="triplet-title" id="t-bf-title"></h3>
+              <div class="triplet-rating" id="t-bf-rating"></div>
+              <div class="triplet-ings" id="t-bf-ings"></div>
+            </div>
+            <div>
+              <div class="triplet-nutrs" id="t-bf-nutrs"></div>
+              <a href="#" target="_blank" rel="noopener" class="recipe-action-link" id="t-bf-link">
+                View Full Recipe
+                <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Lunch -->
+          <div class="triplet-card">
+            <div>
+              <span class="triplet-badge">Lunch</span>
+              <h3 class="triplet-title" id="t-ln-title"></h3>
+              <div class="triplet-rating" id="t-ln-rating"></div>
+              <div class="triplet-ings" id="t-ln-ings"></div>
+            </div>
+            <div>
+              <div class="triplet-nutrs" id="t-ln-nutrs"></div>
+              <a href="#" target="_blank" rel="noopener" class="recipe-action-link" id="t-ln-link">
+                View Full Recipe
+                <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Dinner -->
+          <div class="triplet-card">
+            <div>
+              <span class="triplet-badge">Dinner</span>
+              <h3 class="triplet-title" id="t-dn-title"></h3>
+              <div class="triplet-rating" id="t-dn-rating"></div>
+              <div class="triplet-ings" id="t-dn-ings"></div>
+            </div>
+            <div>
+              <div class="triplet-nutrs" id="t-dn-nutrs"></div>
+              <a href="#" target="_blank" rel="noopener" class="recipe-action-link" id="t-dn-link">
+                View Full Recipe
+                <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let pantryItems = [];
+  let availableIngredients = [];
+
+  // Fetch initial ingredients for autocomplete
+  fetch('/api/ingredients?q=')
+    .then(r => r.json())
+    .then(d => { if (d.ingredients) availableIngredients = d.ingredients; })
+    .catch(() => {});
+
+  function switchTab(mode) {
+    document.getElementById('tab-eval-btn').classList.toggle('active', mode === 'eval');
+    document.getElementById('tab-menu-btn').classList.toggle('active', mode === 'menu');
+
+    document.getElementById('view-eval').style.display = (mode === 'eval') ? 'grid' : 'none';
+    document.getElementById('view-menu').classList.toggle('active', mode === 'menu');
+
+    if (mode === 'menu' && !document.getElementById('diet-score-display').innerText) {
+      executeMenuOptimization();
+    }
+  }
+
+  function focusNativeInput() {
+    document.getElementById('ingredient-input').focus();
+  }
+
+  function refreshChips() {
+    const tray = document.getElementById('chips-tray');
+    tray.innerHTML = '';
+    pantryItems.forEach((item, index) => {
+      const bubble = document.createElement('span');
+      bubble.className = 'tag-bubble';
+      bubble.innerHTML = `${escapeText(item)} <button onclick="deleteChip(${index}, event)" aria-label="Remove item">&times;</button>`;
+      tray.appendChild(bubble);
+    });
+    document.getElementById('tag-counter').innerText = `${pantryItems.length} item${pantryItems.length === 1 ? '' : 's'}`;
+  }
+
+  function pushIngredient(raw) {
+    const term = raw.trim().toLowerCase();
+    if (term && !pantryItems.includes(term)) {
+      pantryItems.push(term);
+      refreshChips();
+    }
+    const input = document.getElementById('ingredient-input');
+    input.value = '';
+    hideAutocomplete();
+  }
+
+  function deleteChip(index, evt) {
+    if (evt) evt.stopPropagation();
+    pantryItems.splice(index, 1);
+    refreshChips();
+  }
+
+  function handleInputKey(e) {
+    const input = document.getElementById('ingredient-input');
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      pushIngredient(input.value);
+    } else if (e.key === 'Backspace' && !input.value && pantryItems.length > 0) {
+      deleteChip(pantryItems.length - 1);
+    }
+  }
+
+  function handleAutoComplete(e) {
+    const query = e.target.value.trim().toLowerCase();
+    const dropdown = document.getElementById('autocomplete-list');
+    if (!query || query.length < 2) {
+      hideAutocomplete();
+      return;
+    }
+
+    fetch(`/api/ingredients?q=${encodeURIComponent(query)}`)
+      .then(r => r.json())
+      .then(d => {
+        const matches = (d.ingredients || []).filter(i => !pantryItems.includes(i));
+        if (matches.length === 0) {
+          hideAutocomplete();
+          return;
+        }
+        dropdown.innerHTML = '';
+        matches.slice(0, 8).forEach(match => {
+          const item = document.createElement('div');
+          item.className = 'autocomplete-item';
+          item.innerText = match;
+          item.onclick = (ev) => {
+            ev.stopPropagation();
+            pushIngredient(match);
+          };
+          dropdown.appendChild(item);
+        });
+        dropdown.style.display = 'block';
+      })
+      .catch(() => hideAutocomplete());
+  }
+
+  function hideAutocomplete() {
+    const dropdown = document.getElementById('autocomplete-list');
+    dropdown.style.display = 'none';
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!document.getElementById('pantry-box').contains(e.target)) {
+      hideAutocomplete();
+    }
+  });
+
+  function loadFlight(items) {
+    pantryItems = [...items];
+    refreshChips();
+    executeEvaluation();
+  }
+
+  function clearBasket() {
+    pantryItems = [];
+    refreshChips();
+    document.getElementById('results-body').style.display = 'none';
+    document.getElementById('empty-state').style.display = 'flex';
+  }
+
+  async function executeEvaluation() {
+    const input = document.getElementById('ingredient-input');
+    if (input.value.trim()) {
+      pushIngredient(input.value);
+    }
+
+    if (pantryItems.length === 0) {
+      alert('Please select a tasting flight or type at least one pantry item.');
+      return;
+    }
+
+    const btn = document.getElementById('evaluate-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="spinner-disc"></span> Evaluating Model...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ingredients: pantryItems })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Evaluation query failed');
+
+      renderEvaluationResults(data);
+    } catch (err) {
+      alert('Error during evaluation: ' + err.message);
+    } finally {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }
+  }
+
+  function renderEvaluationResults(data) {
+    document.getElementById('empty-state').style.display = 'none';
+    const body = document.getElementById('results-body');
+    body.style.display = 'flex';
+
+    // 1. Verdict Banner
+    const vBanner = document.getElementById('verdict-banner');
+    vBanner.className = `verdict-hero ${data.verdict}`;
+
+    const capsule = document.getElementById('verdict-capsule');
+    capsule.innerText = (data.verdict === 'great') ? 'Great Pairing' : 
+                        (data.verdict === 'so-so') ? 'So-so / Mediocre' : 'Bad Combination';
+
+    document.getElementById('verdict-commentary').innerText = data.message;
+
+    // Probabilities Bar & Labels
+    const probs = data.probabilities || {};
+    const pGreat = probs.great || 0;
+    const pSoso = probs['so-so'] || 0;
+    const pBad = probs.bad || 0;
+
+    document.getElementById('top-proba-metric').innerText = `${Math.max(pGreat, pSoso, pBad)}% Confidence`;
+    document.getElementById('gauge-great').style.width = `${pGreat}%`;
+    document.getElementById('gauge-soso').style.width = `${pSoso}%`;
+    document.getElementById('gauge-bad').style.width = `${pBad}%`;
+
+    document.getElementById('lbl-great').innerText = `Great: ${pGreat}%`;
+    document.getElementById('lbl-soso').innerText = `So-so: ${pSoso}%`;
+    document.getElementById('lbl-bad').innerText = `Bad: ${pBad}%`;
+
+    // 2. Similar Recipes Cards
+    const deck = document.getElementById('recipes-deck');
+    deck.innerHTML = '';
+    if (!data.similar_recipes || data.similar_recipes.length === 0) {
+      deck.innerHTML = '<div style="font-size:13px; color:var(--text-muted); padding:8px 0;">No matching recipes found in the Epicurious collection.</div>';
+    } else {
+      data.similar_recipes.forEach(r => {
+        const row = document.createElement('div');
+        row.className = 'recipe-glass-item';
+        row.innerHTML = `
+          <div class="recipe-info">
+            <h4 class="recipe-heading">${escapeText(r.title)}</h4>
+            <div class="recipe-meta-row">
+              <span class="rating-badge">★ ${r.rating} / 5.0</span>
+              <span class="overlap-badge">Match: ${r.match_pct}%</span>
+            </div>
+          </div>
+          <a href="${escapeText(r.url)}" target="_blank" rel="noopener" class="recipe-action-link">
+            View Recipe
+            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+        `;
+        deck.appendChild(row);
+      });
+    }
+
+    // 3. USDA Nutrition Tiles
+    const nDeck = document.getElementById('nutrients-deck');
+    nDeck.innerHTML = '';
+    const agg = data.aggregate_nutrition || {};
+
+    const keyNutrients = [
+      'Protein', 'Total Fat', 'Total Carbohydrate', 'Dietary Fiber', 'Sodium', 'Added Sugars',
+      'Calcium', 'Iron', 'Potassium', 'Vitamin C', 'Vitamin A', 'Vitamin B12'
+    ];
+
+    keyNutrients.forEach(nutrient => {
+      const val = agg[nutrient] !== undefined ? agg[nutrient] : 0;
+      const tile = document.createElement('div');
+      tile.className = 'nutrient-tile';
+      const fillW = Math.min(val, 100);
+      tile.innerHTML = `
+        <div class="nutrient-name">${escapeText(nutrient)}</div>
+        <div class="nutrient-val-flex">
+          <span class="nutrient-number">${val}%</span>
+          <span class="nutrient-unit">DV</span>
+        </div>
+        <div class="gauge-track"><div class="gauge-level" style="width: ${fillW}%"></div></div>
+      `;
+      nDeck.appendChild(tile);
+    });
+
+    const mAlert = document.getElementById('missing-alert');
+    if (data.missing_ingredients && data.missing_ingredients.length > 0) {
+      mAlert.style.display = 'flex';
+      mAlert.innerHTML = `Note: Ingredients <strong>${escapeText(data.missing_ingredients.join(', '))}</strong> are not listed in the USDA registry; their %DV contribution is excluded.`;
+    } else {
+      mAlert.style.display = 'none';
+    }
+  }
+
+  async function executeMenuOptimization() {
+    const btn = document.getElementById('generate-diet-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="spinner-disc"></span> Running Permutations...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/menu', { method: 'POST' });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to generate meal plan');
+
+      document.getElementById('diet-results-box').style.display = 'block';
+      document.getElementById('diet-score-display').innerText = `${data.score} / 15.0`;
+
+      document.getElementById('stat-cal').innerText = `${data.totals.calories}% DV`;
+      document.getElementById('stat-prot').innerText = `${data.totals.protein}% DV`;
+      document.getElementById('stat-fat').innerText = `${data.totals.fat}% DV`;
+      document.getElementById('stat-sod').innerText = `${data.totals.sodium}% DV`;
+
+      // Breakfast Card
+      document.getElementById('t-bf-title').innerText = data.breakfast.title;
+      document.getElementById('t-bf-rating').innerText = `★ ${data.breakfast.rating} / 5.0`;
+      document.getElementById('t-bf-ings').innerText = 'Ingredients: ' + data.breakfast.ingredients.slice(0, 5).join(', ') + (data.breakfast.ingredients.length > 5 ? '...' : '');
+      document.getElementById('t-bf-nutrs').innerHTML = `
+        <span>Calories: <strong>${data.breakfast.nutrients.calories}%</strong></span>
+        <span>Protein: <strong>${data.breakfast.nutrients.protein}%</strong></span>
+        <span>Healthy Fat: <strong>${data.breakfast.nutrients.fat}%</strong></span>
+        <span>Sodium: <strong>${data.breakfast.nutrients.sodium}%</strong></span>
+      `;
+      document.getElementById('t-bf-link').href = data.breakfast.url;
+
+      // Lunch Card
+      document.getElementById('t-ln-title').innerText = data.lunch.title;
+      document.getElementById('t-ln-rating').innerText = `★ ${data.lunch.rating} / 5.0`;
+      document.getElementById('t-ln-ings').innerText = 'Ingredients: ' + data.lunch.ingredients.slice(0, 5).join(', ') + (data.lunch.ingredients.length > 5 ? '...' : '');
+      document.getElementById('t-ln-nutrs').innerHTML = `
+        <span>Calories: <strong>${data.lunch.nutrients.calories}%</strong></span>
+        <span>Protein: <strong>${data.lunch.nutrients.protein}%</strong></span>
+        <span>Healthy Fat: <strong>${data.lunch.nutrients.fat}%</strong></span>
+        <span>Sodium: <strong>${data.lunch.nutrients.sodium}%</strong></span>
+      `;
+      document.getElementById('t-ln-link').href = data.lunch.url;
+
+      // Dinner Card
+      document.getElementById('t-dn-title').innerText = data.dinner.title;
+      document.getElementById('t-dn-rating').innerText = `★ ${data.dinner.rating} / 5.0`;
+      document.getElementById('t-dn-ings').innerText = 'Ingredients: ' + data.dinner.ingredients.slice(0, 5).join(', ') + (data.dinner.ingredients.length > 5 ? '...' : '');
+      document.getElementById('t-dn-nutrs').innerHTML = `
+        <span>Calories: <strong>${data.dinner.nutrients.calories}%</strong></span>
+        <span>Protein: <strong>${data.dinner.nutrients.protein}%</strong></span>
+        <span>Healthy Fat: <strong>${data.dinner.nutrients.fat}%</strong></span>
+        <span>Sodium: <strong>${data.dinner.nutrients.sodium}%</strong></span>
+      `;
+      document.getElementById('t-dn-link').href = data.dinner.url;
+
+    } catch (err) {
+      alert('Error during optimization: ' + err.message);
+    } finally {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }
+  }
+
+  function escapeText(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // Pre-load default flight on startup
+  window.addEventListener('DOMContentLoaded', () => {
+    loadFlight(['milk', 'honey', 'jam']);
+  });
+</script>
+
+</body>
+</html>

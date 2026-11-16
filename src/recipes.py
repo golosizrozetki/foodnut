@@ -4,6 +4,7 @@ import joblib
 import random
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_GZ_PATH = os.path.join(BASE_DIR, "recipe_model.joblib.gz")
 MODEL_PATH = os.path.join(BASE_DIR, "recipe_model.joblib")
 NUTRITION_CSV = os.path.join(BASE_DIR, "nutrition_facts.csv")
 SIMILAR_CSV   = os.path.join(BASE_DIR, "similar_recipes.csv")
@@ -60,8 +61,10 @@ class SimilarRecipes:
 
 
 class RatingPredictor:
-    """Загружает recipe_model.joblib и предсказывает класс блюда."""
-    def __init__(self, model_path=MODEL_PATH):
+    """Загружает recipe_model.joblib (или сжатый .joblib.gz) и предсказывает класс блюда."""
+    def __init__(self, model_path=None):
+        if model_path is None:
+            model_path = MODEL_GZ_PATH if os.path.exists(MODEL_GZ_PATH) else MODEL_PATH
         payload = joblib.load(model_path)
         self.model    = payload["model"]
         self.features = payload["features"]
